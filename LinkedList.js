@@ -157,15 +157,16 @@ class LinkedList {
 
     // print
     prinList () {
-        console.log( this.toArray() );
+        console.log( this.toArray().join(', ') );
     }
     
     // toArray
     toArray () {
-        let current = this.head;
         const arr = []
+        let current = this.head;
         while (current) {
-            arr.push(current.value);
+            //arr.push(current.value);   // Get error when mapping array list
+            arr.push(current); 
             current = current.next;
         }
         return arr;
@@ -180,7 +181,8 @@ toString method for each LinkedListNode is called and then the toString array me
 to print out the entire array of LinkedListNodes
      */
     toString (callback) {
-        return this.toArray().map(node => node.toString(callback)).toString();
+        //return this.toArray().map(node => node.toString(callback)).toString();
+        return this.toArray().map(node => node.toString(callback)).join(', ');
     }
 
 }
@@ -225,13 +227,13 @@ linkedList.deleteHead();
 linkedList.prinList();
 
 
-console.log('After call toString():'); // Without callback
+console.log('After call toString(Without callback):'); // Without callback
 console.log( linkedList.toString() );
 
 
 // With callback (customizes the string representation):
 console.log('With callback = data => `[Node: ${data}]`; (customizes the string representation):');
 const customToString = data => `[Node: ${data}]`;
-console.log(linkedList.head.toString(customToString)); // Output: '[Node: 42]'
+//console.log(linkedList.head.toString(customToString)); // Output: '[Node: 42]'
 
 console.log( linkedList.toString(customToString) );

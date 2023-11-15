@@ -17,8 +17,17 @@ class LinkedListNode {
 
 class LinkedList {
     constructor () {
+        this.count = 0; // stores the number of elements we have in the list
         this.head = null;
         this.tail = null;
+    }
+
+    isEmpty () {
+        return this.count === 0;
+    }
+
+    size () {
+        return this.count;
     }
 
     // Add a Node obj to the beginning of LinkedList // shift()
@@ -32,6 +41,9 @@ class LinkedList {
         // if no tail (linkedList empty), make a new node as tail
         !this.tail && (this.tail = newNode);
         
+        // number of elements in the list
+        this.count++;
+
         //return the value just was added
         return this;
     }
@@ -39,6 +51,9 @@ class LinkedList {
     // Add a Node obj to the end of LinkedList // push()
     append (value) {
         const newNode = new LinkedListNode(value);
+
+        // number of elements in the list
+        this.count++;
         
         // if LinkedList is empty
         if (!this.head) {
@@ -58,6 +73,58 @@ class LinkedList {
         return this;
     }
 
+
+    // find a specific element value in the linked list
+    indexOf (value) {
+        if (!this.head) return -1;
+        if (!this.head.next) {
+            return this.head.value === value ? 0 : -1;
+        }
+        let current = this.head;
+        let found = false;
+        let index = 0;
+        while (current.next) {
+            if (current.value === value) {
+                found = true;
+            }
+            current = current.next;
+            index++;
+        }
+
+        return found ? index - 1 : -1;
+    }
+
+
+    // Looping through the list until we get to the desired position
+    getElementAt (index) {
+        if (index < 0 || index >= this.count) return undefined;
+        let current = this.head;
+        for (let i = 0; i < index && current != null; i++) {
+            current = current.next;
+        }
+        return current;
+    }
+
+
+
+    // inserts a new element at a specified position in the list
+    insertNodeAt (value, index) {
+        const newNode = new LinkedListNode(value);
+        if (index < 0 || index >= this.count) return false;
+        let current = this.head;
+        if (index === 0) {
+            this.head = newNode;
+            newNode.next = current;
+        } else  {
+            let previous = this.getElementAt(index - 1);
+            current = previous.next;
+            previous.next = newNode;
+            newNode.next = current;
+        }
+        // number of elements in the list
+        this.count++;
+        return true;
+    }
 
 
     //find first item that matches the value
@@ -83,6 +150,31 @@ class LinkedList {
 
         return null;
     }
+
+
+    // remove node at specified position
+    removeAt (index) {
+        if (index < 0 || index >= this.count) return undefined;
+
+        let current = this.head;
+        let previous = null;
+        // if remove head
+        if (index === 0) { 
+            this.head = current.next;
+            this.count--;
+            return current.next.value;
+        }
+        for (let i = 0; i < index; i++) {
+            previous = current;
+            current = current.next;
+        }
+        // link previous with current's next: skip it to remove
+        previous.next = current.next;
+        this.count--;
+        return current.value;
+    }
+
+
 
 
 
@@ -117,7 +209,9 @@ class LinkedList {
 
             current = current.next;
         }
-
+        // number of elements in the list
+        this.count--;
+        
     }
 
 
@@ -128,10 +222,12 @@ class LinkedList {
         if (!this.head || !this.head.next) {
             this.head = null;
             this.tail = null;
+            this.count = 0
             return;
         }
 
         this.head = this.head.next;
+        this.count--;
     }
 
 
@@ -141,6 +237,7 @@ class LinkedList {
         if (!this.head || !this.head.next) {
             this.head = null;
             this.tail = null;
+            this.count = 0
             return;
         }
 
@@ -153,7 +250,14 @@ class LinkedList {
         }
         // Update the penultimate node's next pointer to null
         previous.next = null;
+        this.count--;
+
     }
+
+
+    // Sorted linked lists is a list that keeps its elements sorted
+    
+
 
     // print
     prinList () {
@@ -165,7 +269,7 @@ class LinkedList {
         const arr = []
         let current = this.head;
         while (current) {
-            //arr.push(current.value);   // Get error when mapping array list
+            //arr.push(current.value);   // Get ERROR when mapping array list
             arr.push(current); 
             current = current.next;
         }
@@ -175,10 +279,10 @@ class LinkedList {
 
     /**
      * The toString method takes the LinkedList and prints out a string representation of the LinkedList.
-The method takes the LinkedList and first converts it to an array (using the toArray method
-described above). Then the map array method is called to process each LinkedListNode in the list. The
-toString method for each LinkedListNode is called and then the toString array method is called
-to print out the entire array of LinkedListNodes
+    The method takes the LinkedList and first converts it to an array (using the toArray method
+    described above). Then the map array method is called to process each LinkedListNode in the list. The
+    toString method for each LinkedListNode is called and then the toString array method is called
+    to print out the entire array of LinkedListNodes
      */
     toString (callback) {
         //return this.toArray().map(node => node.toString(callback)).toString();
@@ -187,7 +291,7 @@ to print out the entire array of LinkedListNodes
 
 }
 
-//export {LinkedListNode, LinkedList};
+export {LinkedListNode, LinkedList};
 
 
 
@@ -202,6 +306,8 @@ linkedList.append(3);
 linkedList.append(2);
 linkedList.append(5);
 linkedList.prepend(10);
+linkedList.append(12);
+linkedList.append(15);
 
 console.log('Origin Linked List:')
 linkedList.prinList();
@@ -237,3 +343,9 @@ const customToString = data => `[Node: ${data}]`;
 //console.log(linkedList.head.toString(customToString)); // Output: '[Node: 42]'
 
 console.log( linkedList.toString(customToString) );
+
+
+let value = 5;
+//console.log(`indexOf(${value}) = `);
+console.log(`indexOf(${value}) =`, linkedList.indexOf(value));
+

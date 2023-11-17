@@ -18,8 +18,8 @@ class LinkedListNode {
 class LinkedList {
     constructor () {
         this.count = 0; // stores the number of elements we have in the list
-        this.head = null;
-        this.tail = null;
+        this.head = undefined;
+        //this.tail = null;
     }
 
     isEmpty () {

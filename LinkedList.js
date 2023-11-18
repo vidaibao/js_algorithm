@@ -19,7 +19,7 @@ class LinkedList {
     constructor () {
         this.count = 0; // stores the number of elements we have in the list
         this.head = undefined;
-        //this.tail = null;
+        this.tail = undefined;
     }
 
     isEmpty () {
@@ -28,6 +28,16 @@ class LinkedList {
 
     size () {
         return this.count;
+    }
+
+    getTail () {// ??????????
+        let current = this.head;
+        for (let i = 0; i < this.count; i++) {
+            current = current.next;
+        }
+        this.tail = current;
+        //return current || this.tail;
+        return this.tail;
     }
 
     // Add a Node obj to the beginning of LinkedList // shift()
@@ -110,11 +120,15 @@ class LinkedList {
     // inserts a new element at a specified position in the list
     insertNodeAt (value, index) {
         const newNode = new LinkedListNode(value);
-        if (index < 0 || index >= this.count) return false;
+        if (index < 0 || index > this.count) return false;
         let current = this.head;
         if (index === 0) {
             this.head = newNode;
             newNode.next = current;
+        } else if (index ===  this.count) { // insert Tail
+            current = this.tail;
+            current.next = newNode;
+            this.tail = newNode;
         } else  {
             let previous = this.getElementAt(index - 1);
             current = previous.next;
@@ -163,6 +177,10 @@ class LinkedList {
             this.head = current.next;
             this.count--;
             return current.next.value;
+        } else if (index === this.count) { // remove tail
+            previous = this.getElementAt(index - 1);
+            previous.next = null;
+            this.tail = previous;
         }
         for (let i = 0; i < index; i++) {
             previous = current;

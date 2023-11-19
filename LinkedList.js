@@ -118,22 +118,19 @@ class LinkedList {
 
 
     // inserts a new element at a specified position in the list
-    insertNodeAt (value, index) {
+    insert (value, index) {
         const newNode = new LinkedListNode(value);
         if (index < 0 || index > this.count) return false;
         let current = this.head;
         if (index === 0) {
             this.head = newNode;
             newNode.next = current;
-        } else if (index ===  this.count) { // insert Tail
-            current = this.tail;
-            current.next = newNode;
-            this.tail = newNode;
         } else  {
             let previous = this.getElementAt(index - 1);
             current = previous.next;
             previous.next = newNode;
             newNode.next = current;
+            if (index ===  this.count) this.tail = newNode;
         }
         // number of elements in the list
         this.count++;
@@ -273,7 +270,6 @@ class LinkedList {
     }
 
 
-    // Sorted linked lists is a list that keeps its elements sorted
     
 
 
@@ -327,6 +323,8 @@ linkedList.prepend(10);
 linkedList.append(12);
 linkedList.append(15);
 
+console.log("**************************************");
+
 console.log('Origin Linked List:')
 linkedList.prinList();
 
@@ -367,3 +365,8 @@ let value = 5;
 //console.log(`indexOf(${value}) = `);
 console.log(`indexOf(${value}) =`, linkedList.indexOf(value));
 
+let idx = 10;
+value = 55;
+let res = linkedList.insert(value, idx);
+console.log(`insert(${value}, ${idx}): result: ${res}`);
+linkedList.prinList();

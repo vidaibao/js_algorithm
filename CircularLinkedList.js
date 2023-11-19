@@ -15,7 +15,7 @@ class CircularLinkedList extends LinkedList{
         const newNode = new LinkedListNode(value);
         let current = this.head;
         if (index === 0) {
-            if (!this.head) { // empty list
+            if ( this.isEmpty() ) { // empty list
                 // In this case, the last element of the list is the node we created 
                 //  that will point to itself, because it is also the head.
                 this.head = newNode;
@@ -40,7 +40,7 @@ class CircularLinkedList extends LinkedList{
 
     // Removing elements from any position
     removeAt (index) {
-        if (index  < 0 || index >= this.size() || this.size() === 0) return undefined;
+        if (index  < 0 || index >= this.size() || this.isEmpty() ) return undefined;
         let current = this.head;
         if (index === 0) {
             if (this.size() === 1) {
@@ -121,7 +121,7 @@ console.log(`insert ${val} into position ${idx}, return: ${res}`);
 myCircularLList.prinList();
 
 val = 88;
-idx = 8;
+idx = 5;
 res = myCircularLList.insert(val, idx);
 
 //console.log(`myCircularLList.size(): ${myCircularLList.size()}`)
@@ -129,8 +129,11 @@ console.log(`insert ${val} into position ${idx}, return: ${res}`);
 myCircularLList.prinList();
 
 
-
-
+idx = 19;
+//console.log(idx, myCircularLList.size());
+res = myCircularLList.removeAt(idx);
+console.log(`remove at position ${idx}, return: ${res}`);
+myCircularLList.prinList();
 
 
 

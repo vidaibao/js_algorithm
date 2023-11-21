@@ -76,7 +76,8 @@ myStacked.push(8);
 myStacked.push(18);
 myStacked.push(25);
 
-console.log("myStacked.printStack():", myStacked.printStack());
+console.log("myStacked.printStack():");
+myStacked.printStack();
 
 console.log("myStacked.size():", myStacked.size());
 console.log("myStacked.pop():", myStacked.pop());
@@ -85,9 +86,15 @@ console.log("myStacked.size():", myStacked.size());
 console.log("myStacked.push(55):", myStacked.push(55));
 
 console.log("myStacked.peek():", myStacked.peek());
-console.log("myStacked.printStack():", myStacked.printStack());
+console.log("myStacked.printStack():");
+myStacked.printStack();
+
 console.log("myStacked.toArray():", myStacked.toArray());
 console.log("myStacked.toArray().toString():", myStacked.toArray().toString());
+// test private field
+// myStacked.count = 0;
+// console.log("myStacked.count:", myStacked.count);
+// console.log("myStacked.size():", myStacked.size());
 
 
 // Converting decimal numbers to binary
@@ -167,5 +174,3 @@ console.log(`Convert decNum ${decNum} to base ${base} string: ${baseConverter(de
 
 
 
-
-let myStack = new Stack();

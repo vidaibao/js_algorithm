@@ -4,7 +4,7 @@
 //const node = new LinkedListNode(42);
 // LINKED LIST
 class LinkedListNode {
-    constructor(value, next = null){
+    constructor(value, next = undefined){
         this.value = value;
         this.next = next;
     }
@@ -29,7 +29,7 @@ class LinkedList {
     size () {
         return this.count;
     }
-
+/*
     getTail () {// ??????????
         let current = this.head;
         for (let i = 0; i < this.count; i++) {
@@ -39,7 +39,7 @@ class LinkedList {
         //return current || this.tail;
         return this.tail;
     }
-
+*/
     // Add a Node obj to the beginning of LinkedList // shift()
     prepend(value) {
         // make a new Node for the new head
@@ -59,7 +59,7 @@ class LinkedList {
     }
 
     // Add a Node obj to the end of LinkedList // push()
-    append (value) {
+    push (value) {
         const newNode = new LinkedListNode(value);
 
         // number of elements in the list
@@ -73,7 +73,7 @@ class LinkedList {
         }
 
         let current = this.head;
-        while (current.next) {
+        while (current.next) { // {5} get last item
             current = current.next;
         }        
         // new Node become a new tail of Linked list
@@ -314,14 +314,14 @@ export {LinkedListNode, LinkedList};
 
 const linkedList = new LinkedList();
 
-linkedList.append(1);
-linkedList.append(2);
-linkedList.append(3);
-linkedList.append(2);
-linkedList.append(5);
+linkedList.push(1);
+linkedList.push(2);
+linkedList.push(3);
+linkedList.push(2);
+linkedList.push(5);
 linkedList.prepend(10);
-linkedList.append(12);
-linkedList.append(15);
+linkedList.push(12);
+linkedList.push(15);
 
 console.log("**************************************");
 
